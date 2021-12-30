@@ -64,10 +64,12 @@ t.test(twin$first,twin$second,paired = T)
 ```
 
 ## 两独立样本资料的t检验
+
 ### 两样本所属总体方差相等，即方差齐性时：
+
 例 某医师观察两种药物原发性高血压的疗效，将诊断为Ⅱ期高血压的20名患者随机分为两组（两组患者基线时血压之间的差别没有统计学意义），一组用卡托普利治疗（X1），另一组用尼莫地平治疗，3个月后观察舒张压下降的幅度（mmHg），结果如下：试比较两药的降压效果有无差异。
 
-```{r echo=TRUE, paged.print=FALSE}
+```{r paged.print=FALSE}
 Antihypertensive_effect <- read.csv("data/t_test/Antihypertensive_effect.csv",header = T,sep = ",")
 
 knitr::kable(
@@ -76,6 +78,20 @@ knitr::kable(
 )
 ```
 
+经检验，符合正态分布和方差齐性：
+
+```{r}
+# 默认var.equal=F,故可以在确定方差齐性时，设置该参数为T
+t.test(Antihypertensive_effect$X1,Antihypertensive_effect$X2,var.equal = T)
+```
+
+### 两样本所属总体方差不等
+```{r}
+n1 <- rnorm(10,mean = 3,sd = 1)
+n2 <- rnorm(12,mean = 5,sd = 6)
+
+t.test(n1,n2,var.equal = F)
+```
 
 
 
