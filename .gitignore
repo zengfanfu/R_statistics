@@ -41,3 +41,6 @@ vignettes/*.pdf
 # html
 .html
 
+# nb.html
+.nb.html
+

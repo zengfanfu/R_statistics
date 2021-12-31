@@ -90,7 +90,17 @@ t.test(Antihypertensive_effect$X1,Antihypertensive_effect$X2,var.equal = T)
 n1 <- rnorm(10,mean = 3,sd = 1)
 n2 <- rnorm(12,mean = 5,sd = 6)
 
+#采用Welch (or Satterthwaite)法
 t.test(n1,n2,var.equal = F)
+```
+
+## 方差齐性检验
+```{r}
+x1 <- c(12.3,13.2,13.7,15.2,15.4,15.8,16.9)
+x2 <- c(10.8,11.6,12.3,12.7,13.5,14.8)
+
+# ratio参数默认为1，一般不用写，代表两个变量方差假设比值
+var.test(x1,x2,ratio = 1)
 ```
 
 
@@ -103,5 +113,6 @@ t.test(n1,n2,var.equal = F)
 2. 方积乾等，《卫生统计学》（第7版，第8版）
 3. Phil Sperctor:[Using t-tests in R](https://statistics.berkeley.edu/computing/r-t-tests) 
 4. 丁国盛，李涛等，《SPSS统计教程——从研究涉及到数据分析》
+5. 汪海波等，《R语言统计分析与应用》
 
 
