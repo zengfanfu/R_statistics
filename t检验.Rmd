@@ -103,6 +103,23 @@ x2 <- c(10.8,11.6,12.3,12.7,13.5,14.8)
 var.test(x1,x2,ratio = 1)
 ```
 
+## 正态性检验
+
+### 图形方法
+```{r}
+set.seed(2021)
+norm_data <- rnorm(50,mean = 4,sd=0.5)
+skewed_data <- rlnorm(50,meanlog = 1.5,sdlog = 1.4)
+
+hist(norm_data,probability=T,breaks = 20,main="Histogram of normal data",
+     xlab="Approximately normally distributed data")
+lines(density(norm_data),col=2)
+
+hist(skewed_data,probability = T,breaks = 10,main = "Histogram of skewed data",xlab = "Very skewed data")
+lines(density(skewed_data),col=2)
+```
+
+> 样本数据的直方图不太可能产生完全平滑的正态曲线，特别是在样本量很小时，但只要近似正态分布（中间一个峰值，两侧对称），则符合正态性这一条件。
 
 
 
