@@ -167,7 +167,16 @@ ks.test(norm_data2,"pnorm")
 # shapiro.test(norm_data2)
 ```
 
+## 正态变换
 
+```{r}
+## log10()
+
+## sqrt()
+
+## x^(1/3)
+```
+> 一般这三种可供选择
 
 
 ## 参考资料
