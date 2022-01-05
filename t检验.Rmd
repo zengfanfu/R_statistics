@@ -105,22 +105,67 @@ var.test(x1,x2,ratio = 1)
 
 ## 正态性检验
 
-### 图形方法
+### 图形方法--直方图
 ```{r}
 set.seed(2021)
-norm_data <- rnorm(50,mean = 4,sd=0.5)
-skewed_data <- rlnorm(50,meanlog = 1.5,sdlog = 1.4)
+norm_data <- rnorm(200,mean = 4,sd=0.5)
+skewed_data <- rlnorm(200,meanlog = 1.2,sdlog = 1)
 
 hist(norm_data,probability=T,breaks = 20,main="Histogram of normal data",
      xlab="Approximately normally distributed data")
 lines(density(norm_data),col=2)
 
-hist(skewed_data,probability = T,breaks = 10,main = "Histogram of skewed data",xlab = "Very skewed data")
+hist(skewed_data,probability = T,breaks = 20,main = "Histogram of skewed data",xlab = "Very skewed data")
 lines(density(skewed_data),col=2)
 ```
 
-> 样本数据的直方图不太可能产生完全平滑的正态曲线，特别是在样本量很小时，但只要近似正态分布（中间一个峰值，两侧对称），则符合正态性这一条件。
+> 样本数据的直方图不太可能产生完全平滑的正态曲线，特别是在样本量很小时，但只要近似正态分布（中间一个峰值，两侧对称），则符合正态性这一条件。实践中，此方法不实用。
 
+### 图形法--QQ图
+
+```{r}
+set.seed(2022)
+
+norm_data1 <- rnorm(200)
+non_norm_data1 <- rexp(200,rate = 3)
+
+qqnorm(norm_data1,main="normal")
+qqline(norm_data1)
+
+qqnorm(non_norm_data1,main="non-normal")
+qqline(non_norm_data1)
+
+
+## 更简便的做法
+library(ggpubr)
+ggqqplot(non_norm_data1)
+
+```
+
+> [关于ggpubr包的介绍](https://rpkgs.datanovia.com/ggpubr/)，非常不错的一个包，可以常用于实现各种常见图形。
+
+### 统计法--Shapiro-Wilk检验
+
+```{r}
+shapiro.test(norm_data1)
+shapiro.test(non_norm_data1)
+```
+
+> 此处执行的是Shapiro-Wilk正态性检验，其对样本量很敏感，小样本较易通过正态性测试，应该结合作图进行检验。当样本量足够大的时候（n＞30），即使违反正态性假设也不会造成较大的问题（中心极限定理），意味着我们此时可以使用参数测试。
+
+1. SPSS规定：当样本量3≤n≤5000时，结果以Shapiro-Wilk(W检验)为准，当样本含量n＞5000时，结果以Kolmogorov-Smirnov（D检验）为准。(R)
+2. SAS规定：当样本含量n≤2000时，结果以Shapiro-Wilk(W检验)为准，当样本含量n＞2000时，结果以Kolmogorov-Smirnov（D检验）为准。
+
+### 统计法--Kolmogorov-Smirnov检验
+```{r}
+set.seed(2022)
+norm_data2 <- rnorm(6000)
+
+ks.test(norm_data2,"pnorm")
+
+# shaporo.test(n):n in (3,5000)
+# shapiro.test(norm_data2)
+```
 
 
 
